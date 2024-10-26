@@ -1,0 +1,23 @@
+###  Add to cart
+POST http://localhost:3000/graphql
+Content-Type: application/json
+
+{
+  "query": "mutation { addToCart(addProductToCartInput:{productId: 1,quantity:2 , price: 100}) { id cartTotal totalBeforeDiscount products{productId quantity price} owner} }"
+}
+
+### Get Cart
+POST http://localhost:3000/graphql
+Content-Type: application/json
+
+{
+  "query": "mutation { getCart(cartId:22) { id cartTotal totalBeforeDiscount products{productId quantity price} owner} }"
+}
+
+###  Empty Cart
+POST http://localhost:3000/graphql
+Content-Type: application/json
+
+{
+  "query": "mutation { emptyCart(cartId:23) { id cartTotal totalBeforeDiscount products{productId quantity price} owner} }"
+}

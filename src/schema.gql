@@ -1,0 +1,91 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Product {
+  id: Int!
+  title: String!
+  description: String!
+  image: String
+  price: Float!
+  category: String!
+  quantity: Float!
+  owner: Float!
+}
+
+type CartProduct {
+  id: Int!
+  productId: String!
+  quantity: Float!
+  price: Float!
+}
+
+type Cart {
+  id: Int!
+  cartTotal: Float!
+  totalBeforeDiscount: Float!
+  owner: Float!
+  products: [CartProduct!]!
+}
+
+type User {
+  id: Int!
+  username: String!
+  email: String
+  password: String
+  carts: [Cart!]!
+  products: [Product!]!
+}
+
+type Query {
+  getUserById(id: Int!): User
+  findByEmail(email: String!): [User!]!
+  getCurrentUser: String!
+  getProductById(id: Int!): Product
+  getProductByTitle(id: Int!): Product
+}
+
+type Mutation {
+  updateEmail(email: String!): User!
+  deleteUser(id: String!): String!
+  signup(createUserData: CreateUserInput!): User!
+  login(email: String!, password: String!): User!
+  requestPasswordReset(email: String!): Boolean!
+  resetPassword(token: String!, newPassword: String!): Boolean!
+  changePassword(oldPassword: String!, newPassword: String!): String!
+  logout: Boolean!
+  createProduct(createProductInput: CreateProductInput!): Product!
+  updateProduct(id: Float!, updateProductInput: UpdateProductInput!): Product!
+  deleteProduct(id: Float!): String!
+  addToCart(addProductToCartInput: AddProductToCartInput!): Cart!
+  getCart(cartId: Float!): Cart
+  emptyCart(cartId: Float!): Cart!
+}
+
+input CreateUserInput {
+  username: String!
+  email: String!
+  password: String!
+}
+
+input CreateProductInput {
+  title: String!
+  category: String!
+  description: String!
+  quantity: Float!
+  price: Float!
+}
+
+input UpdateProductInput {
+  title: String
+  category: String
+  description: String
+  quantity: Float
+  price: Float
+}
+
+input AddProductToCartInput {
+  productId: Float!
+  price: Float!
+  quantity: Float!
+}
