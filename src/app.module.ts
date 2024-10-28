@@ -16,10 +16,7 @@ import { CartModule } from './graphql/cart/cart.module'
 
 @Module({
   imports: [
-    // ConfigModule.forRoot({
-    //   isGlobal: true,
-    //   envFilePath: `.env.${process.env.NODE_ENV}`,
-    // }),
+
 
     TypeOrmModule.forRoot({
       type: process.env.NODE_ENV === 'production' ? 'postgres' : 'sqlite',
@@ -34,7 +31,6 @@ import { CartModule } from './graphql/cart/cart.module'
           : 'db.sqlite',
       password: 'O9M1a8r5',
       entities: [User, Product, Cart, CartProduct],
-      // entities: ['/**/**/*.entity{.ts,.js}'],
       synchronize: true,
       logging: false,
     }),
@@ -50,7 +46,6 @@ import { CartModule } from './graphql/cart/cart.module'
     AuthModule,
     ProductModule,
     CartModule,
-    // FileUploadModule
   ],
   controllers: [],
   providers: [ConfigService, ProductGateway],
