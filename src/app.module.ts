@@ -16,8 +16,6 @@ import { CartModule } from './graphql/cart/cart.module'
 
 @Module({
   imports: [
-
-
     TypeOrmModule.forRoot({
       type: process.env.NODE_ENV === 'production' ? 'postgres' : 'sqlite',
       host: 'localhost',

@@ -13,18 +13,30 @@ export class UserService {
     @InjectRepository(User) private userRepository: Repository<User>,
   ) {}
 
-  getUserByEmail (email?: string) {
-    return this.userRepository.findOne({ where: { email } })
+  async getUserByEmail (email?: string) {
+    const user = await this.userRepository.findOne({ where: { email } })
+    if (user === null) {
+      return new NotFoundException(`User with ${email} not found`)
+    }
+    return user
   }
 
-  getUserById (id: number) {
-    return this.userRepository.findOne({ where: { id } })
+  async getUserById (id: number) {
+    const user = await this.userRepository.findOne({ where: { id } })
+    if (user === null) {
+      return new NotFoundException(`User ${id} not found`)
+    }
+    return user
   }
 
   async getUserByToken (token: string): Promise<User | null> {
-    return await this.userRepository.findOne({
+    const user = await this.userRepository.findOne({
       where: { resetToken: token, resetTokenExpiry: MoreThan(new Date()) },
     })
+    if (!user) {
+      new NotFoundException(`User with this is (${token}) not found`)
+    }
+    return user
   }
 
   async updateUserEmail (email: string, id: number) {

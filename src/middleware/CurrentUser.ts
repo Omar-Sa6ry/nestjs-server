@@ -1,4 +1,4 @@
-import { Injectable, NestMiddleware } from '@nestjs/common'
+import { Injectable, NestMiddleware, NotFoundException } from '@nestjs/common'
 import { NextFunction, Request, Response } from 'express'
 import { User } from 'src/graphql/models/User.entity'
 import { UserService } from 'src/graphql/users/users.service'
@@ -19,7 +19,12 @@ export class CurrentUserMiddleware implements NestMiddleware {
     const userId = req.session?.userId
     if (userId) {
       const user = await this.usersService.getUserById(userId)
-      req.currentUser = user
+
+      if (!(user instanceof NotFoundException)) {
+        req.currentUser = user as User
+      } else {
+        req.currentUser = null
+      }
     }
     next()
   }

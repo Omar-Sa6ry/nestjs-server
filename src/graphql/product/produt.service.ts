@@ -2,8 +2,8 @@ import { Repository } from 'typeorm'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Product } from '../models/product.entity'
 import { ProductGateway } from './product.gateway'
-import { CreateProductInput } from 'src/dtos/CreateProductInput'
-import { UpdateProductInput } from 'src/dtos/UpdateProductInput'
+import { CreateProductInput } from 'src/graphql/product/dtos/CreateProductInput'
+import { UpdateProductInput } from 'src/graphql/product/dtos/UpdateProductInput'
 import {
   BadRequestException,
   Injectable,
@@ -33,12 +33,20 @@ export class ProductService {
     return savedProduct
   }
 
-  findById (id: number) {
-    return this.productRepository.findOne({ where: { id } })
+  async findById (id: number) {
+    const product = await this.productRepository.findOne({ where: { id } })
+    if (!product) {
+      new NotFoundException(`Product with ${id} not found`)
+    }
+    return product
   }
 
-  find (title) {
-    return this.productRepository.find({ where: { title } })
+  async find (title) {
+    const product = await this.productRepository.find({ where: { title } })
+    if (!product) {
+      new NotFoundException(`Product with ${title} not found`)
+    }
+    return product
   }
 
   async update (id: number, updateProductInput: UpdateProductInput) {

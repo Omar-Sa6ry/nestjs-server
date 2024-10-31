@@ -6,7 +6,7 @@ import {
 import { InjectRepository } from '@nestjs/typeorm'
 import { Cart } from '../models/Cart.entity'
 import { Repository } from 'typeorm'
-import { AddProductToCartInput } from 'src/dtos/AddProductToCartInput'
+import { AddProductToCartInput } from 'src/graphql/cart/dto/AddProductToCartInput'
 import { Product } from '../models/product.entity'
 import { CartProduct } from '../models/CartProduct'
 import { User } from '../models/User.entity'
@@ -53,17 +53,19 @@ export class CartService {
     user.carts.push(cart)
     Object.assign(user, user.carts)
 
-    console.log(user)
     await this.cartProductRepository.save(cartProduct)
     await this.userRepository.save(user)
-    console.log(user)
     return this.cartRepository.save(cart)
   }
 
-  find (cartId: number) {
-    return this.productRepository.findOne({
+  async find (cartId: number) {
+    const cart = await this.productRepository.findOne({
       where: { id: cartId },
     })
+    if (!cart) {
+      new NotFoundException(`Product with (${cartId} not found`)
+    }
+    return cart
   }
 
   async empty (cartId: number, owner: number) {
@@ -79,7 +81,7 @@ export class CartService {
     })
 
     user.carts = []
-    existedCart.owner=owner
+    existedCart.owner = owner
     existedCart.products = []
     existedCart.cartTotal = 0
     existedCart.totalBeforeDiscount = 0

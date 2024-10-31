@@ -38,11 +38,11 @@ type User {
 }
 
 type Query {
-  getUserById(id: Int!): User
+  getUserById(id: Float!): User
   findByEmail(email: String!): [User!]!
   getCurrentUser: String!
-  getProductById(id: Int!): Product
-  getProductByTitle(id: Int!): Product
+  getProductById(id: Float!): Product
+  getProductByTitle(id: Float!): Product
 }
 
 type Mutation {
