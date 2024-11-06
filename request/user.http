@@ -1,10 +1,10 @@
-
 ### Get by id
 POST http://localhost:3000/graphql
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNjcm5mZmhnYnZmZ25tbm5kbm5AZ21mYWlkbC5jb20iLCJpYXQiOjE3MzA3MTA3Mzd9.0zueXZgLef-LE1EsfU3MCd6bbJgh9hIkDHz116BDf_I
 
 {
-  "query": "query { getUserById(id: 3) { id username email products } }"
+  "query": "query { getUserById(id: 37) { id username email } }"
 }
 
 
@@ -13,7 +13,7 @@ POST http://localhost:3000/graphql
 Content-Type: application/json
 
 {
-  "query": "mutation { updateEmail(  email: \"omavrahgcmedtsfabry05@gmail.com\" ) { id username email } }"
+  "query": "mutation { updateEmail(  email: \"omavrahhvhgcmedtsfabry05@gmail.com\" ) { id username email } }"
 }
 
 ### Delete User

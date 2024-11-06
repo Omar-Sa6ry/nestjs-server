@@ -1,9 +1,10 @@
 ###  create a product
 POST http://localhost:3000/graphql
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNjcm5mZmhnYnZmZ25tbm5kbm5AZ21mYWlkbC5jb20iLCJpYXQiOjE3MzA3MzI5NTN9.DzJOXSKSlSjjflnuKQH6TzOGljBYbr-X7XYFmin0afs
 
 {
-  "query": "mutation { createProduct(createProductInput:{title: \"nSamplcfegce Prgoduct\",  category: \"omacvrahmedtsfom\",quantity:4, price: 100, description: \"This is a sample product\"}) { id title category image price description owner} }"
+  "query": "mutation { createProduct(createProductInput:{title: \"vnSampcvflcfecgce Prgoduct\",  category: \"omacvrahmedtsfom\",quantity:4, price: 100, description: \"This is a sample product\"}) { id title category image price owner description} }"
 }
 
 ### Create Product with Image

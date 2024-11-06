@@ -1,33 +1,37 @@
-import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo'
 import { Module } from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm'
+import { CartProduct } from './modules/cart/entity/CartProduct'
+import { Cart } from './modules/cart/entity/Cart.entity'
+import { Product } from './modules/product/entity/Product.entity'
+import { User } from './modules/users/entity/User.entity'
 import { GraphQLModule } from '@nestjs/graphql'
-import { UsersModule } from './graphql/users/users.module'
-import { AuthModule } from './graphql/auth/auth.module'
-import { ConfigService } from '@nestjs/config'
-import { User } from './graphql/models/User.entity'
-import { ProductModule } from './graphql/product/product.module'
-import { Product } from './graphql/models/product.entity'
-import { ProductGateway } from './graphql/product/product.gateway'
+import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo'
+import { UsersModule } from './modules/users/users.module'
+import { CartModule } from './modules/cart/cart.module'
+import { ProductModule } from './modules/product/product.module'
+import { ConfigModule, ConfigService } from '@nestjs/config'
+import { ProductGateway } from './modules/product/services/product.gateway'
 import { MulterModule } from '@nestjs/platform-express'
-import { Cart } from './graphql/models/Cart.entity'
-import { CartProduct } from './graphql/models/CartProduct'
-import { CartModule } from './graphql/cart/cart.module'
+import { OrdersModule } from './modules/orders/orders.module'
+import * as dotenv from 'dotenv'
+import { OAuthModule } from './modules/users/auth/oauth/oauth.module'
 
 @Module({
   imports: [
+    ConfigModule.forRoot(),
     TypeOrmModule.forRoot({
       type: process.env.NODE_ENV === 'production' ? 'postgres' : 'sqlite',
       host: 'localhost',
       port: 5432,
-      username: process.env.NODE_ENV === 'production' ? 'postgres' : 'sqlite',
+      username:
+        process.env.NODE_ENV === 'production' ? process.env.DB : 'sqlite',
       database:
         process.env.NODE_ENV === 'production'
-          ? 'nest-grap-pg'
+          ? process.env.DB_NAME
           : process.env.NODE_ENV === 'test'
           ? 'test.sqlite'
           : 'db.sqlite',
-      password: 'O9M1a8r5',
+      password: process.env.DB_PASSWORD,
       entities: [User, Product, Cart, CartProduct],
       synchronize: true,
       logging: false,
@@ -41,11 +45,22 @@ import { CartModule } from './graphql/cart/cart.module'
       dest: './uploads',
     }),
     UsersModule,
-    AuthModule,
     ProductModule,
     CartModule,
+    OrdersModule,
+    OAuthModule,
   ],
-  controllers: [],
-  providers: [ConfigService, ProductGateway],
+  providers: [
+    ConfigService,
+    ProductGateway,
+    {
+      provide: 'NODE_CONFIG',
+      useFactory: (configService: ConfigService) => {
+        dotenv.config()
+        return configService
+      },
+      inject: [ConfigService],
+    },
+  ],
 })
 export class AppModule {}

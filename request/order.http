@@ -1,0 +1,17 @@
+POST http://localhost:3000/graphql
+Content-Type: application/json
+
+{
+  "query": "mutation($orderData: OrderDataDto!) { createStripeSession(orderData: $orderData) { id object payment_status url } }",
+  "variables": {
+    "orderData": {
+      "price": 100,
+      "description": "A great product",
+      "logo": "https://example.com/logo.png",
+      "success_url": "https://done.com/success",
+      "cancel_url": "https://example.com/cancel",
+      "userId": "user_1234",
+      "email": "user@example.com"
+    }
+  }
+}
