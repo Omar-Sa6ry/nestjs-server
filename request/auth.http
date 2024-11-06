@@ -3,7 +3,7 @@ POST http://localhost:3000/graphql
 Content-Type: application/json
 
 {
-  "query": "mutation { signup(createUserData: { username: \"Omar\", email: \"hbfrrntt@gmail.com\", password: \"123456789\" }) { id username email} }"
+  "query": "mutation { signup(createUserData: { username: \"Omacr\", email: \"ccrnfffhhnvffhvbgbvfgnmnndnn@gmfaidl.com\", password: \"123456789\" }) { user { username, email, id }, token } }"
 }
 
 ### Login
@@ -11,9 +11,16 @@ POST http://localhost:3000/graphql
 Content-Type: application/json
 
 {
-  "query": "mutation { login(email: \"omacvrahmedtsfabry05@gmail.com\", password: \"newPassword123\") { id username email } }"
+  "query": "mutation { login(email: \"ccrnffhgbvfgnmnndnn@gmfaidl.com\", password: \"123456789\") { user { username, email, id }, token } }"
 }
 
+### LoginAdmin
+POST http://localhost:3000/graphql
+Content-Type: application/json
+
+{
+  "query": "mutation { loginAdmin(email: \"ccrnffhgbvfgnmnndnn@gmfaidl.com\", password: \"123456789\") { user { username, email, id }, token } }"
+}
 
 ### Forgot Password 
 POST http://localhost:3000/graphql
@@ -46,3 +53,5 @@ Content-Type: application/json
 {
   "query": "mutation { logout }"
 }
+
+# http://localhost:3000/api/auth/google/login
