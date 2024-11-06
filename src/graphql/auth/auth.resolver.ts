@@ -1,8 +1,8 @@
 import { Resolver, Args, Mutation, Context } from '@nestjs/graphql'
-import { CreateUserInput } from 'src/dtos/CreateUserInput'
+import { CreateUserInput } from 'src/graphql/auth/dto/CreateUserInput'
 import { User } from 'src/graphql/models/User.entity'
 import { authService } from './auth.service'
-import { UseGuards } from '@nestjs/common'
+import {  UseGuards, ValidationPipe } from '@nestjs/common'
 import { AuthGuard } from 'src/guards/auth.guard'
 
 @Resolver(of => User)
@@ -12,7 +12,8 @@ export class AuthResolver {
   @Mutation(returns => User)
   async signup (
     @Context('req') req,
-    @Args('createUserData') createUserData: CreateUserInput,
+    @Args('createUserData', new ValidationPipe())
+    createUserData: CreateUserInput,
   ) {
     const user = await this.authService.register(createUserData)
     req.session.userId = user.id

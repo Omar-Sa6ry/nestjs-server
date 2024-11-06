@@ -10,7 +10,7 @@ import {
   NotFoundException,
 } from '@nestjs/common'
 import { randomBytes } from 'crypto'
-import { CreateUserInput } from 'src/dtos/CreateUserInput'
+import { CreateUserInput } from 'src/graphql/auth/dto/CreateUserInput'
 
 @Injectable()
 export class authService {

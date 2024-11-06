@@ -1,10 +1,15 @@
 import { Resolver, Query, Args, Int, Mutation, Context } from '@nestjs/graphql'
-import { UploadedFile, UseGuards } from '@nestjs/common'
+import {
+  ParseIntPipe,
+  UploadedFile,
+  UseGuards,
+  ValidationPipe,
+} from '@nestjs/common'
 import { AdminGuard } from 'src/guards/admin.guard'
 import { Product } from '../models/product.entity'
 import { ProductService } from './produt.service'
-import { UpdateProductInput } from 'src/dtos/UpdateProductInput'
-import { CreateProductInput } from 'src/dtos/CreateProductInput'
+import { UpdateProductInput } from 'src/graphql/product/dtos/UpdateProductInput'
+import { CreateProductInput } from 'src/graphql/product/dtos/CreateProductInput'
 
 @Resolver(of => Product)
 export class ProductResolver {
@@ -13,7 +18,8 @@ export class ProductResolver {
   @UseGuards(AdminGuard)
   @Mutation(() => Product)
   async createProduct (
-    @Args('createProductInput') createProductInput: CreateProductInput,
+    @Args('createProductInput', new ValidationPipe())
+    createProductInput: CreateProductInput,
     @Context('req') req,
     @UploadedFile() file: Express.Multer.File,
   ): Promise<Product> {
@@ -24,19 +30,19 @@ export class ProductResolver {
   }
 
   @Query(returns => Product, { nullable: true })
-  getProductById (@Args('id', { type: () => Int }) id: number) {
+  getProductById (@Args('id', ParseIntPipe) id: number) {
     return this.productService.findById(id)
   }
 
   @Query(returns => Product, { nullable: true })
-  getProductByTitle (@Args('id', { type: () => Int }) id: number) {
+  getProductByTitle (@Args('id', ParseIntPipe) id: number) {
     return this.productService.find(id)
   }
 
   @UseGuards(AdminGuard)
   @Mutation(() => Product)
   async updateProduct (
-    @Args('id') id: number,
+    @Args('id', ParseIntPipe) id: number,
     @Args('updateProductInput') updateProductInput: UpdateProductInput,
   ) {
     return this.productService.update(id, updateProductInput)
@@ -44,7 +50,7 @@ export class ProductResolver {
 
   @UseGuards(AdminGuard)
   @Mutation(() => String)
-  async deleteProduct (@Args('id') id: number) {
+  async deleteProduct (@Args('id', ParseIntPipe) id: number) {
     return this.productService.delete(id)
   }
 }

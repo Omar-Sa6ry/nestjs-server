@@ -1,7 +1,7 @@
 import { Resolver, Query, Args, Int, Mutation, Context } from '@nestjs/graphql'
 import { User } from 'src/graphql/models/User.entity'
 import { UserService } from './users.service'
-import { UseGuards } from '@nestjs/common'
+import { ParseIntPipe, UseGuards } from '@nestjs/common'
 import { AuthGuard } from 'src/guards/auth.guard'
 import { AdminGuard } from 'src/guards/admin.guard'
 
@@ -10,7 +10,7 @@ export class UserResolver {
   constructor (private userService: UserService) {}
 
   @Query(returns => User, { nullable: true })
-  getUserById (@Args('id', { type: () => Int }) id: number) {
+  getUserById (@Args('id', ParseIntPipe) id: number) {
     return this.userService.getUserById(id)
   }
 

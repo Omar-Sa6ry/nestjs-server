@@ -34,8 +34,8 @@ export class User {
   @Column({ default: true })
   admin: boolean
 
-   @Field(() => [Cart])
- @OneToMany(() => Cart, cart => cart.owner)
+  @Field(() => [Cart])
+  @OneToMany(() => Cart, cart => cart.owner)
   carts: Cart[]
 
   @Field(() => [Product])
