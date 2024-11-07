@@ -15,6 +15,7 @@ import { MulterModule } from '@nestjs/platform-express'
 import { OrdersModule } from './modules/orders/orders.module'
 import * as dotenv from 'dotenv'
 import { OAuthModule } from './modules/users/auth/oauth/oauth.module'
+import { ChatGateway } from './modules/chat/chat.gateway'
 
 @Module({
   imports: [
@@ -53,6 +54,7 @@ import { OAuthModule } from './modules/users/auth/oauth/oauth.module'
   providers: [
     ConfigService,
     ProductGateway,
+    ChatGateway,
     {
       provide: 'NODE_CONFIG',
       useFactory: (configService: ConfigService) => {
