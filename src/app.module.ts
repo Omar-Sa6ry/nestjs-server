@@ -13,13 +13,22 @@ import { ConfigModule, ConfigService } from '@nestjs/config'
 import { ProductGateway } from './modules/product/services/product.gateway'
 import { MulterModule } from '@nestjs/platform-express'
 import { OrdersModule } from './modules/orders/orders.module'
-import * as dotenv from 'dotenv'
 import { OAuthModule } from './modules/users/auth/oauth/oauth.module'
 import { ChatGateway } from './modules/chat/chat.gateway'
+import * as dotenv from 'dotenv'
+import { GraphQLUpload } from 'graphql-upload-minimal'
+import { FileModule } from './modules/file/file.module'
 
 @Module({
   imports: [
     ConfigModule.forRoot(),
+    GraphQLModule.forRoot({
+      driver: ApolloDriver,
+      context: ({ req }) => ({ req, currentUser: req.currentUser }),
+      autoSchemaFile: 'src/schema.gql',
+      uploads: false,
+    }),
+
     TypeOrmModule.forRoot({
       type: process.env.NODE_ENV === 'production' ? 'postgres' : 'sqlite',
       host: 'localhost',
@@ -37,24 +46,22 @@ import { ChatGateway } from './modules/chat/chat.gateway'
       synchronize: true,
       logging: false,
     }),
-    GraphQLModule.forRoot<ApolloDriverConfig>({
-      driver: ApolloDriver,
-      context: ({ req }) => ({ req, currentUser: req.currentUser }),
-      autoSchemaFile: 'src/schema.gql',
-    }),
-    MulterModule.register({
-      dest: './uploads',
-    }),
+
     UsersModule,
     OAuthModule,
     ProductModule,
     CartModule,
     OrdersModule,
+    FileModule,
   ],
   providers: [
     ConfigService,
     ProductGateway,
     ChatGateway,
+    {
+      provide: 'Upload',
+      useValue: GraphQLUpload,
+    },
     {
       provide: 'NODE_CONFIG',
       useFactory: (configService: ConfigService) => {

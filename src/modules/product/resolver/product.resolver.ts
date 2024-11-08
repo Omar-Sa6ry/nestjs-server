@@ -10,7 +10,6 @@ import { ProductDto } from '../dtos/Product.dto'
 import { Serialize } from 'src/interceptors/serialize.interceptor'
 import {
   ParseIntPipe,
-  UploadedFile,
   UseGuards,
   ValidationPipe,
 } from '@nestjs/common'
@@ -26,10 +25,8 @@ export class ProductResolver {
     @Args('createProductInput', new ValidationPipe())
     createProductInput: CreateProductInput,
     @Context('req') req,
-    @UploadedFile() file: Express.Multer.File,
   ): Promise<Product> {
     const owner: number = req.session.userId
-    // const image = file ? `/uploads/${file.filename}` : null
     return this.productService.create(createProductInput, owner)
   }
 
