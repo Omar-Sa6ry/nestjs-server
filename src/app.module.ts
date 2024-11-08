@@ -46,10 +46,10 @@ import { ChatGateway } from './modules/chat/chat.gateway'
       dest: './uploads',
     }),
     UsersModule,
+    OAuthModule,
     ProductModule,
     CartModule,
     OrdersModule,
-    OAuthModule,
   ],
   providers: [
     ConfigService,
