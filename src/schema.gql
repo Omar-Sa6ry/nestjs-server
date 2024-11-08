@@ -75,6 +75,7 @@ type Mutation {
   getCart(cartId: Float!): Cart
   emptyCart(cartId: Float!): Cart!
   createStripeSession(orderData: OrderDataDto!): StripeCheckoutSession!
+  uploadFile(file: Upload!): String!
 }
 
 input CreateUserInput {
@@ -119,3 +120,6 @@ input OrderDataDto {
   userId: String!
   email: String!
 }
+
+"""The `Upload` scalar type represents a file upload."""
+scalar Upload
