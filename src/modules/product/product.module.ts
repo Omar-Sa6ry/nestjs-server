@@ -9,13 +9,16 @@ import { ProductService } from '../product/services/produt.service'
 import { RoleGuard } from '../../guards/role.guard'
 import { JwtGuard } from 'src/guards/jwt.guard'
 import { SessionGuard } from 'src/guards/session.guard'
+import { FileService } from '../file/services/file.service'
+import { FileModule } from '../file/file.module'
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Product, User])],
+  imports: [TypeOrmModule.forFeature([Product, User]), FileModule],
   providers: [
     ProductResolver,
     ProductService,
     UserService,
+    FileService,
     RoleGuard,
     JwtGuard,
     SessionGuard,

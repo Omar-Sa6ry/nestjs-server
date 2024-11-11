@@ -8,11 +8,8 @@ import { JwtGuard } from 'src/guards/jwt.guard'
 import { SessionGuard } from 'src/guards/session.guard'
 import { ProductDto } from '../dtos/Product.dto'
 import { Serialize } from 'src/interceptors/serialize.interceptor'
-import {
-  ParseIntPipe,
-  UseGuards,
-  ValidationPipe,
-} from '@nestjs/common'
+import { ParseIntPipe, UseGuards, ValidationPipe } from '@nestjs/common'
+import { FileUpload, GraphQLUpload } from 'graphql-upload-minimal'
 
 @Resolver(of => Product)
 export class ProductResolver {
@@ -24,10 +21,14 @@ export class ProductResolver {
   async createProduct (
     @Args('createProductInput', new ValidationPipe())
     createProductInput: CreateProductInput,
+    @Args({ name: 'file', type: () => GraphQLUpload }) file: FileUpload,
+    // // upload alotof images
+    // @Args({ name: 'files', type: () => [GraphQLUpload] }) files: FileUpload[],
     @Context('req') req,
   ): Promise<Product> {
     const owner: number = req.session.userId
-    return this.productService.create(createProductInput, owner)
+    console.log(file)
+    return this.productService.create(createProductInput, owner, file)
   }
 
   @Query(returns => Product, { nullable: true })

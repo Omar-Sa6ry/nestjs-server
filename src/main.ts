@@ -7,7 +7,7 @@ import * as session from 'express-session'
 async function bootstrap () {
   const app = await NestFactory.create(AppModule, {
     cors: true,
-    logger: ['error', 'warn', 'log', 'debug', 'verbose'],
+    // logger: ['error', 'warn', 'log', 'debug', 'verbose'],
   })
 
   app.useGlobalPipes(new ValidationPipe()) // === (run in app module)

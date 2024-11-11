@@ -7,7 +7,7 @@ import { User } from './modules/users/entity/User.entity'
 import { GraphQLModule } from '@nestjs/graphql'
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo'
 import { UsersModule } from './modules/users/users.module'
-import { CartModule } from './modules/cart/cart.module'
+// import { CartModule } from './modules/cart/cart.module'
 import { ProductModule } from './modules/product/product.module'
 import { ConfigModule, ConfigService } from '@nestjs/config'
 import { ProductGateway } from './modules/product/services/product.gateway'
@@ -15,9 +15,9 @@ import { MulterModule } from '@nestjs/platform-express'
 import { OrdersModule } from './modules/orders/orders.module'
 import { OAuthModule } from './modules/users/auth/oauth/oauth.module'
 import { ChatGateway } from './modules/chat/chat.gateway'
-import * as dotenv from 'dotenv'
 import { GraphQLUpload } from 'graphql-upload-minimal'
 import { FileModule } from './modules/file/file.module'
+import * as dotenv from 'dotenv'
 
 @Module({
   imports: [
@@ -50,7 +50,7 @@ import { FileModule } from './modules/file/file.module'
     UsersModule,
     OAuthModule,
     ProductModule,
-    CartModule,
+    // CartModule,
     OrdersModule,
     FileModule,
   ],
