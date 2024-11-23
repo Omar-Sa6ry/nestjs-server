@@ -3,7 +3,7 @@ POST http://localhost:3000/graphql
 Content-Type: application/json
 
 {
-  "query": "mutation { signup(createUserData: { username: \"Omacr\", email: \"ccrnfffhhnvffhvbgbvfgnmnndnn@gmfaidl.com\", password: \"123456789\" }) { user { username, email, id }, token } }"
+  "query": "mutation { signup(createUserData: { username: \"Omacr\", email: \"ccrnffhgbvfgnmnndnn@gmfaidl.com\", password: \"123456789\" }) { user { username, email, id }, token } }"
 }
 
 ### Login

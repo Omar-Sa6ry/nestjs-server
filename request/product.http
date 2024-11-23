@@ -1,110 +1,136 @@
 ###  create a product
 POST http://localhost:3000/graphql
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNjcm5mZmhnYnZmZ25tbm5kbm5AZ21mYWlkbC5jb20iLCJpYXQiOjE3MzA3MzI5NTN9.DzJOXSKSlSjjflnuKQH6TzOGljBYbr-X7XYFmin0afs
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNjcm5mZmhnYnZmZ25tbm5kbm5AZ21mYWlkbC5jb20iLCJpYXQiOjE3MzExNDkwODh9.Men13a05cmGTKrOgs60zI7HdIcFXahP5HIVElodLrfM
 
 {
-  "query": "mutation { createProduct(createProductInput:{title: \"vnSampcvflcfecgce Prgoduct\",  category: \"omacvrahmedtsfom\",quantity:4, price: 100, description: \"This is a sample product\"}) { id title category image price owner description} }"
-}
-
-### Create Product with Image
-POST http://localhost:3000/graphql
-Content-Type: multipart/form-data
-
-{
-  "operations": {
-    "query": "mutation ($createProductInput: CreateProductInput!, $file: Upload!) { createProduct(createProductInput: $createProductInput, file: $file) { id title description category price image owner { id username } } }",
-    "variables": {
-      "createProductInput": {
-        "title": "Sample Product",
-        "description": "A sample product description",
-        "price": 58.99,
-        "category": "Sample Category"
-      },
-      "file": null
-    }
-  },
-  "map": {
-    "0": ["variables.file"]
-  },
-  "0": "path/to/your/image.jpg"
-}
-
-
-### Get by id
-POST http://localhost:3000/graphql
-Content-Type: application/json
-
-{
-  "query": "query { getProductById(id: 1){ id title category image price description } }"
-}
-
-### update Product
-POST http://localhost:3000/graphql
-Content-Type: application/json
-
-{
-  "query": "mutation { updateProduct( updateProductInput:{ category: \"j@gmail.com\"},id: 1 ) { id title description category } }"
-}
-
-### Delete User
-POST http://localhost:3000/graphql
-Content-Type: application/json
-
-{
-  "query": "mutation { deleteProduct(id: 2) }"
+  "query": "mutation { createProduct(createProductInput:{title: \"vnSamffpcvflcfecgce Prgoduct\",  category: \"omacvrahmedtsfom\",quantity:4, price: 100, description: \"This is a sample product\"}) { id title category image price owner description} }"
 }
 
 
 ### Create Product with Image Upload
 POST http://localhost:3000/graphql
-Content-Type: multipart/form-data
-
-{
-  "operations": {
-    "query": "mutation ($createProductInput: CreateProductInput!, $file: Upload!) { createProduct(createProductInput: $createProductInput, file: $file) { id title description category price owner { id username } } }",
-    "variables": {
-      "createProductInput": {
-        "title": "Sample Product",
-        "description": "A sample product description",
-        "price": 58.99,
-        "category": "Sample Category"
-      }
-    }
-  },
-}
-
-
-### Create Product with Image
-POST http://localhost:3000/graphql
-Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Type: application/json
+Content-Type: multipart/form-data; 
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNjcm5mZmhnYnZmZ25tbm5kbm5AZ21mYWlkbC5jb20iLCJpYXQiOjE3MzExNzAwMDJ9.AyRZFGsHnbVoQLSV-yIv1vnjfRAIthNft0xh7GM-POw
 x-apollo-operation-name: createProduct
-apollo-require-preflight: true
-
-------WebKitFormBoundary7MA4YWxkTrZu0gW
 Content-Disposition: form-data; name="operations"
 
 {
-  "query": "mutation ($createProductInput: CreateProductInput!, $file: Upload!) { createProduct(createProductInput: $createProductInput, file: $file) { id title description category price image owner { id username } } }",
+  "query": "mutation($createProductInput: CreateProductInput!, $file: Upload!) { createProduct(createProductInput: $createProductInput, file: $file) { id title category image price description } }",
   "variables": {
     "createProductInput": {
-      "title": "Sample Product",
-      "description": "A sample product description",
-      "price": 58.99,
-      "category": "Sample Category"
+      "title": "Sample bjbjProduct",
+      "description": "This is a sample product description.",
+      "price": 100,
+      "category": "Sample Category",
+      "quantity": 4
     },
     "file": null
   }
 }
-------WebKitFormBoundary7MA4YWxkTrZu0gW
 Content-Disposition: form-data; name="map"
+{
+  "0": ["variables.file"]
+}
+Content-Disposition: form-data; name="0"; filename="photo.jpg"
+Content-Type: image/jpeg
+
+< "C:\Users\omara\OneDrive\Pictures\photo_2024-05-06_21-03-19.jpg"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### Create Product with Image Upload
+POST http://localhost:3000/graphql
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNjcm5mZmhnYnZmZ25tbm5kbm5AZ21mYWlkbC5jb20iLCJpYXQiOjE3MzExNzAwMDJ9.AyRZFGsHnbVoQLSV-yIv1vnjfRAIthNft0xh7GM-POw
+Content-Disposition: form-data; name="operations"
+Content-Type: application/json
+Content-Type: multipart/form-data
+
+{
+  "query": "mutation($createProductInput: CreateProductInput!, $file: Upload!) { createProduct(createProductInput: $createProductInput, file: $file) { id title category image price description } }",
+  "variables": {
+    "createProductInput": {
+      "title": "Sample Produnnct",
+      "description": "This is a sample product description.",
+      "price": 100,
+      "category": "Sample Category",
+      "quantity": 4
+    },
+    "file": null
+  }
+}
+Content-Disposition: form-data; name="map"
+Content-Type: application/json
 
 {
   "0": ["variables.file"]
 }
-------WebKitFormBoundary7MA4YWxkTrZu0gW
-Content-Disposition: form-data; name="0"; filename="image.jpg"
+Content-Disposition: form-data; name="0"; filename="photo_2024-05-06_21-03-19.jpg"
 Content-Type: image/jpeg
 
-<Replace this line with the content of your image file>
-------WebKitFormBoundary7MA4YWxkTrZu0gW--
+< C:\Users\omara\OneDrive\Pictures\photo_2024-05-06_21-03-19.jpg

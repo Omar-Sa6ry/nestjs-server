@@ -32,6 +32,11 @@ export class Product {
   @Column({ nullable: true })
   image?: string
 
+  //// To Upload alotof images
+  // @Field(() => [String], { nullable: true })
+  // @Column('simple-array', { nullable: true })
+  // images?: string[]
+
   @Column()
   @Field()
   price: number

@@ -9,22 +9,32 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common'
+import { FileUpload } from 'graphql-upload-minimal'
+import { FileService } from 'src/modules/file/services/file.service'
 
 @Injectable()
 export class ProductService {
   constructor (
     @InjectRepository(Product) private productRepository: Repository<Product>,
+    private readonly fileService: FileService,
     private readonly productGateway: ProductGateway, // Inject gateway for Socket.IO
   ) {}
 
   async create (
     createProductInput: CreateProductInput,
-    // image: string,
     owner: number,
+    image: FileUpload,
+    // // To Upload alotof images
+    // images: FileUpload[]
   ): Promise<Product> {
+    const filePath = await this.fileService.uploadFile(image)
+
+    // // To Upload alotof images
+    // const filePath = await this.fileService.uploadFiles(images)
+
     const product = this.productRepository.create({
       ...createProductInput,
-      // image,
+      // image: filePath,
       owner,
     })
 

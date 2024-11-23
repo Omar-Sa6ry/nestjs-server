@@ -68,12 +68,10 @@ type Mutation {
   resetPassword(token: String!, newPassword: String!): Boolean!
   changePassword(oldPassword: String!, newPassword: String!): String!
   logout: Boolean!
-  createProduct(createProductInput: CreateProductInput!): Product!
+  createProduct(createProductInput: CreateProductInput!, file: Upload!): Product!
   updateProduct(id: Float!, updateProductInput: UpdateProductInput!): Product!
   deleteProduct(id: Float!): String!
-  addToCart(addProductToCartInput: AddProductToCartInput!): Cart!
-  getCart(cartId: Float!): Cart
-  emptyCart(cartId: Float!): Cart!
+  uploadFile(file: Upload!): String!
   createStripeSession(orderData: OrderDataDto!): StripeCheckoutSession!
 }
 
@@ -96,18 +94,15 @@ input CreateProductInput {
   price: Float!
 }
 
+"""The `Upload` scalar type represents a file upload."""
+scalar Upload
+
 input UpdateProductInput {
   title: String
   category: String
   description: String
   quantity: Float
   price: Float
-}
-
-input AddProductToCartInput {
-  productId: Float!
-  price: Float!
-  quantity: Float!
 }
 
 input OrderDataDto {
