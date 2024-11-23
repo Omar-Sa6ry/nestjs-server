@@ -17,22 +17,6 @@ export function Serialize (dto: ClassConstructor) {
   return UseInterceptors(new SerializationInterceptor(dto))
 }
 
-// export class SerializeInterceptor implements NestInterceptor {
-//   constructor (private dto: any) {}
-
-//   intercept (context: ExecutionContext, handler: CallHandler): Observable<any> {
-//     return handler.handle().pipe(
-//       map((data: any) => {
-//         return plainToClass(this.dto, data, {
-//           excludeExtraneousValues: true,
-//         })
-//       }),
-//     )
-//   }
-// }
-
-
-
 @Injectable()
 export class SerializationInterceptor implements NestInterceptor {
   constructor (private dto: any) {}

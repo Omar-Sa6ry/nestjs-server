@@ -6,7 +6,6 @@ import * as fs from 'fs'
 @Injectable()
 export class FileService {
   async uploadFile (file: FileUpload) {
-    console.log("uhuh")
     const { createReadStream, filename } = file
     const uploadDir = path.join(process.cwd(), 'uploads')
 
@@ -22,7 +21,6 @@ export class FileService {
       out.on('finish', resolve)
       out.on('error', reject)
     })
-console.log(filePath)
     return filePath
   }
 
